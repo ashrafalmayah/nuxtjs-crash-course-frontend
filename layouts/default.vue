@@ -25,6 +25,15 @@
         </main>
     </div>
 </template>
+
+<script setup>
+useHead({
+    titleTemplate: (extension) => {
+        return extension ? `${extension} | Nuxt Blog` : "Nuxt Blog"
+    },
+})
+</script>
+
 <style>
     .router-link-active {
         @apply font-semibold;

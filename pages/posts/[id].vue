@@ -1,4 +1,6 @@
 <template>
+    <Title>Post {{ $route.params.id }}</Title>
+
     <h1 class="text-3xl font-bold">Post - {{ $route.params.id }}</h1>
     <p class="mt-8">
         Is beast before token silken his bust have nevermore surely. Least said

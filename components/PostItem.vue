@@ -6,7 +6,13 @@
                 Post Title
             </NuxtLink>
         </h1>
-        <div class="text-sm text-gray-500">Jul, 06, 2024</div>
+        <div class="text-sm text-gray-500 flex items-center space-x-2">
+            <div>
+                Jul, 06, 2024
+            </div>
+            <div>&middot;</div>
+            <div>Ashraf Almayah</div>
+        </div>
         <div class="px-2 py-4">
             Vainly name but we from bird, with streaming some as i that that
             kind him from. Weary the this bore the many or grew, deep though in
