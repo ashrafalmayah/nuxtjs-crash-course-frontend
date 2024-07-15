@@ -1,16 +1,17 @@
 <template>
-    <Title>Post {{ $route.params.id }}</Title>
+    <Title>{{ post?.title }}</Title>
 
-    <h1 class="text-3xl font-bold">Post - {{ $route.params.id }}</h1>
-    <p class="mt-8">
-        Is beast before token silken his bust have nevermore surely. Least said
-        thee other lies and my. Evermore fowl i swung thy. Of lent pallas violet
-        grim divining so curtain heard the, be my out lenore shore tossed still,
-        over i air lamplight that madam smiling with wandering smiling. Land my
-        let living my was tossed unbroken. Feather so and when with shore ah
-        that many a. Unto to and chamber of above. And of only memories dared
-        ghastly. Tapping till dreary is floor the faster his. Doubting floating
-        the of something above sorrowsorrow with bird answer, nothing theeby
-        unhappy.
-    </p>
+    <h1 class="text-3xl font-bold">{{ post?.title }}</h1>
+    <div class="text-sm text-gray-500 flex items-center space-x-2">
+        <div>
+            {{ new Date(post?.created_at).toLocaleDateString('en', { dateStyle: 'long'})}}
+        </div>
+        <div>&middot;</div>
+        <div>{{ post?.user.name }}</div>
+    </div>
+    <p class="mt-8 pb-8">{{ post?.body }}</p>
 </template>
+
+<script setup>
+    const { data: post } = useAPI(`/api/posts/${useRoute().params.id}`);
+</script>
