@@ -41,6 +41,9 @@
     </form>
 </template>
 <script setup>
+    definePageMeta({
+        middleware: ["auth"],
+    });
     let title = ref("");
     let body = ref("");
     let isLoading = ref(false);
@@ -58,7 +61,7 @@
             });
             isLoading.value = false;
 
-            useRouter().push('/');
+            useRouter().push("/");
         } catch (err) {
             isLoading.value = false;
             errors.value = Object.values(err.data.errors).flat();

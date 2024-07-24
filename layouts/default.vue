@@ -6,32 +6,34 @@
             >
                 <NuxtLink to="/" class="font-bold">LOGO</NuxtLink>
                 <nav>
-                    <ul class="flex gap-8">
-                        <li>
-                            <NuxtLink to="/">Home</NuxtLink>
-                        </li>
-                        <li>
-                            <NuxtLink to="/login">Login</NuxtLink>
-                        </li>
-                        <li>
-                            <NuxtLink to="/register">Register</NuxtLink>
-                        </li>
-                        <li>
-                            <NuxtLink to="/my-info">My info</NuxtLink>
-                        </li>
-                        <li>
-                            <NuxtLink to="/create">Create</NuxtLink>
-                        </li>
-                        <li>
-                            <NuxtLink to="/about">About</NuxtLink>
-                        </li>
-                        <li>
-                            <NuxtLink to="/contact">Contact</NuxtLink>
-                        </li>
-                        <li>
-                            <button @click="logout">Log out</button>
-                        </li>
-                    </ul>
+                    <ClientOnly>
+                        <ul class="flex gap-8">
+                            <li>
+                                <NuxtLink to="/">Home</NuxtLink>
+                            </li>
+                            <li v-if="!isLoggedIn">
+                                <NuxtLink to="/login">Login</NuxtLink>
+                            </li>
+                            <li v-if="!isLoggedIn">
+                                <NuxtLink to="/register">Register</NuxtLink>
+                            </li>
+                            <li v-if="isLoggedIn">
+                                <NuxtLink to="/my-info">My info</NuxtLink>
+                            </li>
+                            <li v-if="isLoggedIn">
+                                <NuxtLink to="/create">Create</NuxtLink>
+                            </li>
+                            <li>
+                                <NuxtLink to="/about">About</NuxtLink>
+                            </li>
+                            <li>
+                                <NuxtLink to="/contact">Contact</NuxtLink>
+                            </li>
+                            <li v-if="isLoggedIn">
+                                <button @click="logout">Log out</button>
+                            </li>
+                        </ul>
+                    </ClientOnly>
                 </nav>
             </div>
         </header>
@@ -49,6 +51,7 @@
     });
 
     const { $apiFetch } = useNuxtApp();
+    const { removeUser, isLoggedIn } = useAuth();
 
     async function logout() {
         try {
@@ -58,6 +61,7 @@
         } catch (err) {
             console.log(err.data);
         } finally {
+            removeUser();
             window.location.pathname = "/";
         }
     }

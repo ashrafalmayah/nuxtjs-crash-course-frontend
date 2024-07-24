@@ -1,7 +1,10 @@
 <template>
     <Title>Login</Title>
 
-    <form @submit.prevent="login" class="bg-white rounded-md p-8 space-y-8 max-w-lg mx-auto">
+    <form
+        @submit.prevent="login"
+        class="bg-white rounded-md p-8 space-y-8 max-w-lg mx-auto"
+    >
         <h1 class="text-3xl font-bold text-center">Login</h1>
         <ul
             v-show="errors.length > 0"
@@ -47,13 +50,16 @@
     </form>
 </template>
 <script setup>
-    import Cookies from "js-cookie";
+    definePageMeta({
+        middleware: ["guest"],
+    });
     let email = ref("");
     let password = ref("");
     let isLoading = ref(false);
     let errors = ref([]);
     let showPassword = ref(false);
     const { $apiFetch } = useNuxtApp();
+    const { setUser } = useAuth();
 
     function csrf() {
         return $apiFetch("/sanctum/csrf-cookie");
@@ -72,6 +78,10 @@
                     password: password.value,
                 },
             });
+
+            const user = await $apiFetch("/api/user");
+
+            setUser(user.name);
 
             window.location.pathname = "/my-info";
         } catch (err) {

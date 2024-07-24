@@ -77,6 +77,9 @@
     </form>
 </template>
 <script setup>
+    definePageMeta({
+        middleware: ["guest"],
+    });
     let name = ref("");
     let email = ref("");
     let password = ref("");
@@ -86,8 +89,8 @@
     let showPasswordConfirm = ref(false);
     let errors = ref([]);
     const { $apiFetch } = useNuxtApp();
+    const { setUser } = useAuth();
 
-    
     function csrf() {
         return $apiFetch("/sanctum/csrf-cookie");
     }
@@ -107,6 +110,10 @@
                     password_confirmation: passwordConfirm.value,
                 },
             });
+
+            const user = await $apiFetch("/api/user");
+
+            setUser(user.name);
 
             window.location.pathname = "/my-info";
         } catch (err) {
