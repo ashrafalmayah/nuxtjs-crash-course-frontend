@@ -61,7 +61,7 @@
             useRouter().push('/');
         } catch (err) {
             isLoading.value = false;
-            errors = Object.values(err.data.errors).flat();
+            errors.value = Object.values(err.data.errors).flat();
         }
     }
 </script>

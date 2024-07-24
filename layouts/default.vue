@@ -11,6 +11,15 @@
                             <NuxtLink to="/">Home</NuxtLink>
                         </li>
                         <li>
+                            <NuxtLink to="/login">Login</NuxtLink>
+                        </li>
+                        <li>
+                            <NuxtLink to="/register">Register</NuxtLink>
+                        </li>
+                        <li>
+                            <NuxtLink to="/my-info">My info</NuxtLink>
+                        </li>
+                        <li>
                             <NuxtLink to="/create">Create</NuxtLink>
                         </li>
                         <li>
@@ -18,6 +27,9 @@
                         </li>
                         <li>
                             <NuxtLink to="/contact">Contact</NuxtLink>
+                        </li>
+                        <li>
+                            <button @click="logout">Log out</button>
                         </li>
                     </ul>
                 </nav>
@@ -30,11 +42,25 @@
 </template>
 
 <script setup>
-useHead({
-    titleTemplate: (extension) => {
-        return extension ? `${extension} | Nuxt Blog` : "Nuxt Blog"
-    },
-})
+    useHead({
+        titleTemplate: (extension) => {
+            return extension ? `${extension} | Nuxt Blog` : "Nuxt Blog";
+        },
+    });
+
+    const { $apiFetch } = useNuxtApp();
+
+    async function logout() {
+        try {
+            await $apiFetch("/logout", {
+                method: "POST",
+            });
+        } catch (err) {
+            console.log(err.data);
+        } finally {
+            window.location.pathname = "/";
+        }
+    }
 </script>
 
 <style>
