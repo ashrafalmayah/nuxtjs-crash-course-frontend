@@ -7,12 +7,12 @@
     <div class="mt-4">
         <ul v-if="posts.length" class="grid gap-2">
             <h2 class="text-3xl font-bold my-4">My Posts</h2>
-            <li v-for="post in posts" :key="post.id">
+            <li v-for="post in posts" :key="post.id" class="bg-white rounded-md px-4 py-2 flex justify-between text-blue-500 hover:text-blue-700">
                 <NuxtLink
-                    :to="`posts/${post.id}`"
-                    class="bg-white rounded-md px-4 py-2 block text-blue-500 hover:text-blue-700"
+                    :to="`/posts/${post.id}`"
                     >{{ post.title }}</NuxtLink
                 >
+                <NuxtLink :to="`/posts/${post.id}/edit`">Edit</NuxtLink>
             </li>
         </ul>
     </div>
